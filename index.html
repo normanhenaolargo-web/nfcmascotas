@@ -166,7 +166,7 @@ const raza = p.get("raza");
 const color = p.get("color");
 const alimento = p.get("alimento");
 const observacion = p.get("observacion");
-
+const nacimiento = p.get("nacimiento");
 if(nombre) document.getElementById("nombre").innerText = "🐾 " + nombre;
 if(foto) document.getElementById("foto").src = foto;
 
@@ -176,7 +176,7 @@ document.getElementById("raza").innerText = raza || "No registrada";
 document.getElementById("color").innerText = color || "No registrado";
 document.getElementById("alimento").innerText = alimento || "No registrado";
 document.getElementById("observacion").innerText = observacion || "Sin observación";
-
+document.getElementById("nacimiento").innerText = nacimiento || "No registrado";
 if(tel){
 document.getElementById("telefono").innerText = tel;
 document.getElementById("llamar").href = "tel:" + tel;
