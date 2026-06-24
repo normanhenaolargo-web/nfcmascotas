@@ -1,151 +1,128 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TEDDY - Mascota NFC</title>
+<title>Mascota NFC</title>
 
 <style>
 body{
     margin:0;
-    font-family:Arial, sans-serif;
-    background:#6cc9a6;
-}
-
-.tarjeta{
-    max-width:450px;
-    margin:20px auto;
-    background:white;
-    border-radius:25px;
-    overflow:hidden;
-    box-shadow:0 0 15px rgba(0,0,0,0.2);
-}
-
-.encabezado{
+    font-family: Arial, sans-serif;
+    background: #e8f5e9;
+    background-image: url("https://www.transparenttextures.com/patterns/paw-print.png");
     text-align:center;
-    padding:20px;
-    background:#6cc9a6;
 }
 
-.foto{
-    width:180px;
-    height:180px;
-    border-radius:50%;
-    border:6px solid white;
+/* TARJETA */
+.card{
+    background:white;
+    max-width:420px;
+    margin:40px auto;
+    border-radius:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    overflow:hidden;
+}
+
+/* ENCABEZADO */
+.header{
+    background: linear-gradient(135deg,#43a047,#1b5e20);
+    color:white;
+    padding:20px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+/* IMAGEN */
+img{
+    width:100%;
+    height:320px;
     object-fit:cover;
 }
 
-.nombre{
-    font-size:38px;
-    font-weight:bold;
-    margin-top:10px;
-}
-
-.mensaje{
-    background:#f4e7db;
-    padding:12px;
-    margin:15px;
-    border-radius:10px;
-    font-size:22px;
-    font-weight:bold;
-    text-align:center;
-}
-
+/* INFO */
 .info{
     padding:20px;
 }
 
-.item{
-    margin-bottom:15px;
-    font-size:22px;
-}
-
-.etiqueta{
-    color:#666;
+.name{
+    font-size:26px;
     font-weight:bold;
+    color:#2e7d32;
+    margin-bottom:10px;
 }
 
-.valor{
-    color:#000;
+.phone{
+    font-size:18px;
+    color:#555;
+    margin-bottom:20px;
 }
 
-.boton{
+/* BOTÓN LLAMAR */
+.btn{
     display:block;
-    background:#28a745;
+    background: linear-gradient(135deg,#4caf50,#2e7d32);
     color:white;
-    text-decoration:none;
-    text-align:center;
     padding:15px;
-    margin:20px;
-    border-radius:10px;
-    font-size:22px;
+    border-radius:12px;
+    text-decoration:none;
+    font-size:18px;
     font-weight:bold;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    transition:0.2s;
+}
+
+.btn:hover{
+    transform:scale(1.03);
+    background:#1b5e20;
+}
+
+/* ICONO PATA */
+.paws{
+    font-size:30px;
+    margin-top:10px;
 }
 </style>
+
 </head>
 
 <body>
 
-<div class="tarjeta">
+<div class="card">
 
-<div class="encabezado">
-<img class="foto" src="b705cacc-1420-460f-8abd-6b98fa37a7fb.jfif" alt="TEDDY">
-<div class="nombre">TEDDY</div>
-</div>
+    <div class="header">
+        🐾 Perfil Mascota NFC 🐾
+    </div>
 
-<div class="mensaje">
-Si me encuentras, ayúdame a volver a casa ❤️
-</div>
+    <img id="foto" src="https://i.postimg.cc/bJ8mLpMk/b705cacc-1420-460f-8abd-6b98fa37a7fb.jpg">
 
-<div class="info">
+    <div class="info">
+        <div class="name" id="nombre">Nombre de la Mascota</div>
+        <div class="phone" id="telefono">Teléfono: ---</div>
 
-<div class="item">
-<span class="etiqueta">Propietario:</span>
-<span class="valor">Norman Henao</span>
-</div>
+        <a id="llamar" class="btn" href="#">📞 LLAMAR AHORA</a>
 
-<div class="item">
-<span class="etiqueta">Teléfono:</span>
-<span class="valor">+57 3108343803</span>
-</div>
-
-<div class="item">
-<span class="etiqueta">Ubicación:</span>
-<span class="valor">Medellín, Antioquia</span>
-</div>
-
-<div class="item">
-<span class="etiqueta">Raza:</span>
-<span class="valor">Shih Tzu</span>
-</div>
-
-<div class="item">
-<span class="etiqueta">Año de nacimiento:</span>
-<span class="valor">2019</span>
-</div>
-
-<div class="item">
-<span class="etiqueta">Color:</span>
-<span class="valor">Blanco, café y negro</span>
-</div>
-
-<div class="item">
-<span class="etiqueta">Vacunas:</span>
-<span class="valor">Al día</span>
-</div>
-
-<div class="item">
-<span class="etiqueta">Alimentación:</span>
-<span class="valor">Diamond Light</span>
-</div>
+        <div class="paws">🐾 🐾 🐾</div>
+    </div>
 
 </div>
 
-<a class="boton" href="tel:+573108343803">
-📞 Llamar al propietario
-</a>
+<script>
+const params = new URLSearchParams(window.location.search);
 
-</div>
+const nombre = params.get("nombre");
+const foto = params.get("foto");
+const tel = params.get("tel");
+
+if(nombre) document.getElementById("nombre").innerText = nombre;
+if(foto) document.getElementById("foto").src = foto;
+
+if(tel){
+    document.getElementById("telefono").innerText = "Teléfono: " + tel;
+    document.getElementById("llamar").href = "tel:" + tel;
+}
+</script>
 
 </body>
 </html>
