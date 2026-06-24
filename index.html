@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,122 +6,165 @@
 <title>Mascota NFC</title>
 
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
 body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background: #e8f5e9;
-    background-image: url("https://www.transparenttextures.com/patterns/paw-print.png");
-    text-align:center;
+background:linear-gradient(180deg,#1f7a5c,#43b581);
+padding:20px;
 }
 
-/* TARJETA */
-.card{
-    background:white;
-    max-width:420px;
-    margin:40px auto;
-    border-radius:25px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.25);
-    overflow:hidden;
+.tarjeta{
+max-width:500px;
+margin:auto;
+background:#fffdf8;
+border-radius:30px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
-/* ENCABEZADO */
 .header{
-    background: linear-gradient(135deg,#43a047,#1b5e20);
-    color:white;
-    padding:20px;
-    font-size:20px;
-    font-weight:bold;
+background:linear-gradient(180deg,#2f8f6a,#55c596);
+padding:40px 20px 25px;
+text-align:center;
+position:relative;
 }
 
-/* IMAGEN */
-img{
-    width:100%;
-    height:320px;
-    object-fit:cover;
+.header h1{
+color:white;
+font-size:42px;
+margin-top:15px;
 }
 
-/* INFO */
-.info{
-    padding:20px;
+.foto{
+width:220px;
+height:220px;
+border-radius:50%;
+object-fit:cover;
+border:8px solid white;
+box-shadow:0 5px 20px rgba(0,0,0,.25);
 }
 
-.name{
-    font-size:26px;
-    font-weight:bold;
-    color:#2e7d32;
-    margin-bottom:10px;
+.mensaje{
+background:#f6e8da;
+margin:20px;
+padding:18px;
+border-radius:15px;
+text-align:center;
+font-size:22px;
+font-weight:bold;
+color:#333;
 }
 
-.phone{
-    font-size:18px;
-    color:#555;
-    margin-bottom:20px;
+.contenido{
+padding:10px 25px 25px;
 }
 
-/* BOTÓN LLAMAR */
-.btn{
-    display:block;
-    background: linear-gradient(135deg,#4caf50,#2e7d32);
-    color:white;
-    padding:15px;
-    border-radius:12px;
-    text-decoration:none;
-    font-size:18px;
-    font-weight:bold;
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
-    transition:0.2s;
+.item{
+padding:14px 0;
+border-bottom:1px solid #ececec;
+font-size:20px;
 }
 
-.btn:hover{
-    transform:scale(1.03);
-    background:#1b5e20;
+.etiqueta{
+font-weight:bold;
+color:#666;
 }
 
-/* ICONO PATA */
-.paws{
-    font-size:30px;
-    margin-top:10px;
+.valor{
+color:#222;
 }
+
+.llamar{
+display:block;
+background:#1fa84a;
+color:white;
+text-decoration:none;
+text-align:center;
+padding:18px;
+margin:25px;
+border-radius:15px;
+font-size:24px;
+font-weight:bold;
+}
+
+.footer{
+text-align:center;
+padding:20px;
+color:#666;
+font-size:15px;
+}
+
 </style>
-
 </head>
 
 <body>
 
-<div class="card">
+<div class="tarjeta">
 
-    <div class="header">
-        🐾 Perfil Mascota NFC 🐾
-    </div>
+<div class="header">
+<img id="foto" class="foto"
+src="https://i.postimg.cc/bJ8mLpMk/b705cacc-1420-460f-8abd-6b98fa37a7fb.jpg">
 
-    <img id="foto" src="https://i.postimg.cc/bJ8mLpMk/b705cacc-1420-460f-8abd-6b98fa37a7fb.jpg">
+<h1 id="nombre">🐾 MASCOTA</h1>
+</div>
 
-    <div class="info">
-        <div class="name" id="nombre">Nombre de la Mascota</div>
-        <div class="phone" id="telefono">Teléfono: ---</div>
+<div class="mensaje">
+❤️ Si me encuentras, ayúdame a volver a casa ❤️
+</div>
 
-        <a id="llamar" class="btn" href="#">📞 LLAMAR AHORA</a>
+<div class="contenido">
 
-        <div class="paws">🐾 🐾 🐾</div>
-    </div>
+<div class="item"><span class="etiqueta">Propietario:</span> <span class="valor" id="propietario">No definido</span></div>
+
+<div class="item"><span class="etiqueta">Teléfono:</span> <span class="valor" id="telefono">---</span></div>
+
+<div class="item"><span class="etiqueta">Ubicación:</span> <span class="valor" id="ubicacion">---</span></div>
+
+<div class="item"><span class="etiqueta">Raza:</span> <span class="valor" id="raza">---</span></div>
+
+<div class="item"><span class="etiqueta">Color:</span> <span class="valor" id="color">---</span></div>
+
+</div>
+
+<a id="llamar" class="llamar" href="#">
+📞 LLAMAR AL PROPIETARIO
+</a>
+
+<div class="footer">
+Mascota protegida con NFC
+</div>
 
 </div>
 
 <script>
-const params = new URLSearchParams(window.location.search);
+const p = new URLSearchParams(window.location.search);
 
-const nombre = params.get("nombre");
-const foto = params.get("foto");
-const tel = params.get("tel");
+const nombre = p.get("nombre");
+const foto = p.get("foto");
+const tel = p.get("tel");
+const propietario = p.get("propietario");
+const ubicacion = p.get("ubicacion");
+const raza = p.get("raza");
+const color = p.get("color");
 
-if(nombre) document.getElementById("nombre").innerText = nombre;
+if(nombre) document.getElementById("nombre").innerText = "🐾 " + nombre;
 if(foto) document.getElementById("foto").src = foto;
-
+if(propietario) document.getElementById("propietario").innerText = propietario;
 if(tel){
-    document.getElementById("telefono").innerText = "Teléfono: " + tel;
+    document.getElementById("telefono").innerText = tel;
     document.getElementById("llamar").href = "tel:" + tel;
 }
+if(ubicacion) document.getElementById("ubicacion").innerText = ubicacion;
+if(raza) document.getElementById("raza").innerText = raza;
+if(color) document.getElementById("color").innerText = color;
 </script>
 
 </body>
 </html>
+
