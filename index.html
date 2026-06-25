@@ -152,22 +152,33 @@ Mascota protegida con NFC
 </div>
 
 <script>
-const p = new URLSearchParams(window.location.search);
+const id = new URLSearchParams(window.location.search).get("id");
 
-document.getElementById("nombre").innerText =
-p.get("nombre") || "MASCOTA";
+fetch("https://script.google.com/macros/s/AKfycbxiu4-AEzDHc-KDhGY-4aHmpscSWHZB-cOa_nY8_2I73M9uDfQXN2m828pBRGya61Uj7Q/exec?id=" + id)
+.then(r => r.json())
+.then(d => {
 
-document.getElementById("propietario").innerText =
-p.get("propietario") || "---";
+document.getElementById("nombre").innerText = d.nombre || "MASCOTA";
+document.getElementById("propietario").innerText = d.propietario || "---";
+document.getElementById("telefono").innerText = d.telefono || "---";
+document.getElementById("nacimiento").innerText = d.nacimiento || "---";
 
-document.getElementById("telefono").innerText =
-p.get("tel") || "---";
+if(document.getElementById("color"))
+document.getElementById("color").innerText = d.color || "---";
 
-document.getElementById("nacimiento").innerText =
-p.get("nacimiento") || "---";
+if(document.getElementById("alimento"))
+document.getElementById("alimento").innerText = d.alimento || "---";
+
+if(document.getElementById("observacion"))
+document.getElementById("observacion").innerText = d.observacion || "---";
+
+if(document.getElementById("foto"))
+document.getElementById("foto").src = d.foto;
 
 document.getElementById("llamar").href =
-"tel:" + (p.get("tel") || "");
+"tel:" + d.telefono;
+
+});
 </script>
 </body>
 </html>
