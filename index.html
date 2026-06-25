@@ -174,6 +174,11 @@ console.log("ID recibido:", id);
 if(id){
 document.getElementById("nombre").innerText = "🐾 " + id;
 }
+fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQSARinGx0hHulqUVOE27x-VuOXTXs7e5z4Y84zZVpe8hNG1EY7M3sE5f58T9dViyK6nOv95JX-sjD6/pub?output=csv")
+.then(r => r.text())
+.then(datos => {
+console.log(datos);
+});
 document.getElementById("propietario").innerText = propietario || "No registrado";
 document.getElementById("ubicacion").innerText = ubicacion || "No registrada";
 document.getElementById("raza").innerText = raza || "No registrada";
