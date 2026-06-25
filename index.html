@@ -155,29 +155,22 @@ Mascota protegida con NFC
 </div>
 
 <script>
-<script>
-function enviar() {
+const p = new URLSearchParams(window.location.search);
 
-  fetch("https://script.google.com/macros/s/AKfycbzgWXwWXEjx5XQeF0EsslK4w16Mby0r2A5YcaphtdIX62MWR1L6YKA8cuBleSoUpqOJDg/exec, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      id: document.getElementById("id").value,
-      nombre: document.getElementById("nombre").value,
-      propietario: document.getElementById("propietario").value,
-      telefono: document.getElementById("telefono").value,
-      alimento: document.getElementById("alimento").value,
-      observacion: document.getElementById("observacion").value,
-      nacimiento: document.getElementById("nacimiento").value,
-      color: document.getElementById("color").value,
-      foto: document.getElementById("foto").value,
-      linkNFC: document.getElementById("linkNFC").value
-    })
-  });
+document.getElementById("nombre").innerText =
+p.get("nombre") || "MASCOTA";
 
-}
+document.getElementById("propietario").innerText =
+p.get("propietario") || "---";
+
+document.getElementById("telefono").innerText =
+p.get("tel") || "---";
+
+document.getElementById("nacimiento").innerText =
+p.get("nacimiento") || "---";
+
+document.getElementById("llamar").href =
+"tel:" + (p.get("tel") || "");
 </script>
 </body>
 </html>
