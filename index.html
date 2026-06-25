@@ -156,40 +156,44 @@ Mascota protegida con NFC
 
 <script>
 const p = new URLSearchParams(window.location.search);
-
-const nombre = p.get("nombre");
-const foto = p.get("foto");
-const tel = p.get("tel");
-const propietario = p.get("propietario");
-const ubicacion = p.get("ubicacion");
-const raza = p.get("raza");
-const color = p.get("color");
-const alimento = p.get("alimento");
-const observacion = p.get("observacion");
-const nacimiento = p.get("nacimiento");
-if(nombre) document.getElementById("nombre").innerText = "🐾 " + nombre;
-if(foto) document.getElementById("foto").src = foto;
 const id = p.get("id");
-console.log("ID recibido:", id);
+
 if(id){
 document.getElementById("nombre").innerText = "🐾 " + id;
 }
+
 fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQSARinGx0hHulqUVOE27x-VuOXTXs7e5z4Y84zZVpe8hNG1EY7M3sE5f58T9dViyK6nOv95JX-sjD6/pub?output=csv")
 .then(r => r.text())
-.then(datos => {
-console.log(datos);
-});
-document.getElementById("propietario").innerText = propietario || "No registrado";
-document.getElementById("ubicacion").innerText = ubicacion || "No registrada";
-document.getElementById("raza").innerText = raza || "No registrada";
-document.getElementById("color").innerText = color || "No registrado";
-document.getElementById("alimento").innerText = alimento || "No registrado";
-document.getElementById("observacion").innerText = observacion || "Sin observación";
-document.getElementById("nacimiento").innerText = nacimiento || "No registrado";
-if(tel){
-document.getElementById("telefono").innerText = tel;
-document.getElementById("llamar").href = "tel:" + tel;
+.then(csv => {
+
+const filas = csv.split("\n");
+
+for(let i = 1; i < filas.length; i++){
+
+const c = filas[i].split(",");
+
+if(c[0] && c[0].trim() === id){
+
+document.getElementById("nombre").innerText = "🐾 " + (c[1] || "");
+document.getElementById("propietario").innerText = c[2] || "";
+document.getElementById("telefono").innerText = c[3] || "";
+document.getElementById("alimento").innerText = c[4] || "";
+document.getElementById("observacion").innerText = c[5] || "";
+document.getElementById("nacimiento").innerText = c[6] || "";
+document.getElementById("color").innerText = c[7] || "";
+
+if(c[8]){
+document.getElementById("foto").src = c[8];
 }
+
+if(c[3]){
+document.getElementById("llamar").href = "tel:" + c[3];
+}
+
+break;
+}
+}
+});
 </script>
 
 </body>
