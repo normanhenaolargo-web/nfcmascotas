@@ -171,6 +171,9 @@ if(nombre) document.getElementById("nombre").innerText = "🐾 " + nombre;
 if(foto) document.getElementById("foto").src = foto;
 const id = p.get("id");
 console.log("ID recibido:", id);
+if(id){
+document.getElementById("nombre").innerText = "🐾 " + id;
+}
 document.getElementById("propietario").innerText = propietario || "No registrado";
 document.getElementById("ubicacion").innerText = ubicacion || "No registrada";
 document.getElementById("raza").innerText = raza || "No registrada";
