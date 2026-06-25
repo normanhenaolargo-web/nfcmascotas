@@ -155,47 +155,30 @@ Mascota protegida con NFC
 </div>
 
 <script>
-const p = new URLSearchParams(window.location.search);
-const id = p.get("id");
+<script>
+function enviar() {
 
-if(id){
-document.getElementById("nombre").innerText = "🐾 " + id;
+  fetch("https://script.google.com/macros/s/AKfycbzgWXwWXEjx5XQeF0EsslK4w16Mby0r2A5YcaphtdIX62MWR1L6YKA8cuBleSoUpqOJDg/exec, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      id: document.getElementById("id").value,
+      nombre: document.getElementById("nombre").value,
+      propietario: document.getElementById("propietario").value,
+      telefono: document.getElementById("telefono").value,
+      alimento: document.getElementById("alimento").value,
+      observacion: document.getElementById("observacion").value,
+      nacimiento: document.getElementById("nacimiento").value,
+      color: document.getElementById("color").value,
+      foto: document.getElementById("foto").value,
+      linkNFC: document.getElementById("linkNFC").value
+    })
+  });
+
 }
-
-fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQSARinGx0hHulqUVOE27x-VuOXTXs7e5z4Y84zZVpe8hNG1EY7M3sE5f58T9dViyK6nOv95JX-sjD6/pub?output=csv")
-.then(r => r.text())
-.then(csv => {
-
-const filas = csv.split("\n");
-
-for(let i = 1; i < filas.length; i++){
-
-const c = filas[i].split(",");
-
-if(c[0] && c[0].trim() === id){
-
-document.getElementById("nombre").innerText = "🐾 " + (c[1] || "");
-document.getElementById("propietario").innerText = c[2] || "";
-document.getElementById("telefono").innerText = c[3] || "";
-document.getElementById("alimento").innerText = c[4] || "";
-document.getElementById("observacion").innerText = c[5] || "";
-document.getElementById("nacimiento").innerText = c[6] || "";
-document.getElementById("color").innerText = c[7] || "";
-
-if(c[8]){
-document.getElementById("foto").src = c[8];
-}
-
-if(c[3]){
-document.getElementById("llamar").href = "tel:" + c[3];
-}
-
-break;
-}
-}
-});
 </script>
-
 </body>
 </html>
 
