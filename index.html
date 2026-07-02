@@ -157,7 +157,7 @@ const id = new URLSearchParams(window.location.search).get("id");
 fetch("https://script.google.com/macros/s/AKfycbxiu4-AEzDHc-KDhGY-4aHmpscSWHZB-cOa_nY8_2I73M9uDfQXN2m828pBRGya61Uj7Q/exec?id=" + id)
 .then(r => r.json())
 .then(d => {
-
+console.log(d);
 document.getElementById("nombre").innerText = d.nombre || "MASCOTA";
 document.getElementById("propietario").innerText = d.propietario || "---";
 document.getElementById("telefono").innerText = d.telefono || "---";
