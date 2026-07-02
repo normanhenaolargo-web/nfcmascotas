@@ -2,158 +2,410 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Mascota NFC</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
+:root{
+  --forest-900:#0F3D33;
+  --forest-700:#1B5E4F;
+  --green-500:#2F9E6E;
+  --cream:#FBF7EF;
+  --ink-900:#1E2A22;
+  --ink-600:#5C6960;
+  --gold-500:#E4A73B;
+  --gold-600:#C98A22;
+  --line:#E3DCC9;
+  --radius-card: clamp(18px, 4vw, 28px);
+}
+
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, sans-serif;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  -webkit-text-size-adjust:100%;
 }
 
 body{
-background:linear-gradient(180deg,#145a4a,#2ecc71);
-padding:20px;
+  font-family:'Inter', Arial, sans-serif;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.08), transparent 60%),
+    linear-gradient(180deg, var(--forest-900), var(--forest-700) 55%, #133b31 100%);
+  min-height:100vh;
+  padding: clamp(16px, 5vw, 40px) clamp(12px, 4vw, 20px);
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
 }
 
-/* TARJETA */
+/* ---------- LOADER ---------- */
+#cargando{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:14px;
+  background:linear-gradient(180deg, var(--forest-900), var(--forest-700));
+  color:#EFE6D2;
+  font-size:clamp(15px, 4vw, 18px);
+  font-weight:600;
+  z-index:50;
+  text-align:center;
+  padding:20px;
+}
+.spinner{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:3px solid rgba(255,255,255,.25);
+  border-top-color:var(--gold-500);
+  animation:spin 0.8s linear infinite;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+/* ---------- TARJETA ---------- */
 .tarjeta{
-max-width:500px;
-margin:auto;
-background:#fffaf3;
-border-radius:30px;
-overflow:hidden;
-box-shadow:0 10px 30px rgba(0,0,0,.25);
+  width:100%;
+  max-width:440px;
+  background:var(--cream);
+  border-radius:var(--radius-card);
+  overflow:hidden;
+  box-shadow:
+    0 30px 60px -15px rgba(0,0,0,.45),
+    0 10px 25px -10px rgba(0,0,0,.3);
+  animation:cardIn .5s ease both;
+}
+@keyframes cardIn{
+  from{ opacity:0; transform:translateY(14px); }
+  to{ opacity:1; transform:translateY(0); }
 }
 
-/* HEADER */
-/* HEADER */
+/* ---------- HEADER ---------- */
 .header{
-background:linear-gradient(180deg,#0f766e,#22c55e);
-padding:30px 20px;
-text-align:center;
+  position:relative;
+  background:
+    radial-gradient(120% 100% at 50% -10%, rgba(255,255,255,.14), transparent 55%),
+    linear-gradient(160deg, var(--forest-700), var(--forest-900));
+  padding: clamp(22px,6vw,32px) clamp(18px,6vw,28px) 0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
 }
+
+.badge-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(228,167,59,.16);
+  border:1px solid rgba(228,167,59,.5);
+  color:var(--gold-500);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  padding:6px 14px;
+  border-radius:999px;
+  margin-bottom:16px;
+}
+
 .header h1{
-color:white;
-font-size:38px;
-margin-top:40px;
+  color:#FBF7EF;
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:clamp(26px, 7vw, 34px);
+  line-height:1.15;
+  letter-spacing:-.01em;
+}
+#textoNombre{
+  display:inline-block;
+}
+
+.paw-icon{
+  font-size:0.65em;
+  vertical-align:2px;
+  opacity:.85;
+}
+
+/* Foto: perfectamente centrada, superpuesta al borde inferior del header */
+.foto-wrap{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  margin-top: clamp(18px, 5vw, 24px);
+  transform: translateY(50%);
 }
 
 .foto{
-width:230px;
-height:230px;
-border-radius:50%;
-object-fit:cover;
-border:8px solid white;
-box-shadow:0 10px 30px rgba(0,0,0,.35);
-margin-bottom:-35px;
-background:white;
+  width: clamp(120px, 32vw, 160px);
+  height: clamp(120px, 32vw, 160px);
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+  border:6px solid var(--cream);
+  box-shadow:0 14px 30px rgba(0,0,0,.35);
+  background:#fff;
 }
 
+.foto-skeleton{
+  width: clamp(120px, 32vw, 160px);
+  height: clamp(120px, 32vw, 160px);
+  border-radius:50%;
+  border:6px solid var(--cream);
+  background:linear-gradient(100deg, #e4ded0 30%, #f1ece0 50%, #e4ded0 70%);
+  background-size:200% 100%;
+  animation:shimmer 1.4s infinite;
+  box-shadow:0 14px 30px rgba(0,0,0,.25);
+}
+@keyframes shimmer{
+  0%{ background-position:200% 0; }
+  100%{ background-position:-200% 0; }
+}
 
-/* MENSAJE (más oscuro y legible como pediste) */
+/* Línea perforada estilo credencial/ticket */
+.perforada{
+  position:relative;
+  height: clamp(60px, 16vw, 78px);
+  background:var(--cream);
+}
+.perforada::before{
+  content:"";
+  position:absolute;
+  top:0; left:0; right:0;
+  border-top:2px dashed var(--line);
+}
+.perforada::after,
+.perforada .muesca-izq,
+.perforada .muesca-der{
+  content:"";
+}
+
+/* ---------- MENSAJE ---------- */
 .mensaje{
-background:#ffffff;
-margin:30px 20px 20px;
-padding:18px;
-border-radius:18px;
-text-align:center;
-font-size:19px;
-font-weight:bold;
-color:#2c3e50;
-box-shadow:0 8px 20px rgba(0,0,0,.12);
-border-left:6px solid #22c55e;
+  margin: 0 clamp(18px,6vw,28px) 18px;
+  padding: 12px 16px;
+  border-radius:14px;
+  text-align:center;
+  font-size:clamp(13.5px, 3.6vw, 15px);
+  font-weight:600;
+  color:var(--forest-900);
+  background:#F1EEDF;
+  border:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
 }
-/* CONTENIDO */
+
+/* ---------- CONTENIDO / FILAS COMPACTAS ---------- */
 .contenido{
-padding:10px 25px 25px;
+  padding: 0 clamp(18px,6vw,28px) 8px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
 
 .item{
-background:#f8f9fa;
-margin-bottom:12px;
-padding:15px;
-border-radius:12px;
-font-size:18px;
-box-shadow:0 2px 8px rgba(0,0,0,.08);
-border:none;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#fff;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  min-height:46px;
+}
+
+.icono{
+  flex:0 0 auto;
+  width:30px;
+  height:30px;
+  border-radius:9px;
+  background:linear-gradient(160deg, #EAF5EE, #DCEFE1);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:15px;
+}
+
+.texto-fila{
+  flex:1 1 auto;
+  min-width:0;
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:10px;
 }
 
 .etiqueta{
-font-weight:bold;
-color:#2d3436;
+  font-weight:600;
+  color:var(--ink-600);
+  font-size:clamp(11.5px, 3vw, 12.5px);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  white-space:nowrap;
 }
 
 .valor{
-color:#444;
+  color:var(--ink-900);
+  font-weight:700;
+  font-size:clamp(13.5px, 3.6vw, 15px);
+  text-align:right;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-/* BOTÓN */
+/* ---------- BOTÓN ---------- */
 .llamar{
-display:block;
-background:linear-gradient(135deg,#27ae60,#1e8449);
-color:white;
-text-decoration:none;
-text-align:center;
-padding:18px;
-margin:25px;
-border-radius:15px;
-font-size:22px;
-font-weight:bold;
-box-shadow:0 5px 15px rgba(0,0,0,.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  background:linear-gradient(135deg, var(--gold-500), var(--gold-600));
+  color:#2A1B02;
+  text-decoration:none;
+  text-align:center;
+  padding: clamp(14px,4vw,17px);
+  margin: clamp(18px,5vw,22px) clamp(18px,6vw,28px) 8px;
+  border-radius:14px;
+  font-size:clamp(15px, 4vw, 17px);
+  font-weight:800;
+  letter-spacing:.01em;
+  box-shadow:0 12px 24px -8px rgba(228,167,59,.55);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.llamar:active{
+  transform:scale(.98);
+  box-shadow:0 6px 14px -6px rgba(228,167,59,.55);
 }
 
-/* FOOTER */
+/* ---------- FOOTER ---------- */
 .footer{
-text-align:center;
-padding:20px;
-color:#666;
-font-size:14px;
+  text-align:center;
+  padding: 4px 20px clamp(18px,5vw,24px);
+  color:var(--ink-600);
+  font-size:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+.footer .dot{
+  width:5px; height:5px; border-radius:50%; background:var(--green-500);
+}
+
+/* ---------- RESPONSIVE FINO ---------- */
+@media (max-width:360px){
+  .texto-fila{ flex-direction:column; align-items:flex-start; gap:2px; }
+  .valor{ text-align:left; white-space:normal; }
+}
+
+@media (min-width:600px){
+  body{ align-items:center; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
 }
 
 </style>
 </head>
 
 <body>
-<div id="cargando" style="text-align:center;color:white;font-size:22px;font-weight:bold;padding:20px;">
-🐾 Cargando datos de la mascota...
+
+<div id="cargando">
+  <div class="spinner"></div>
+  Cargando datos de la mascota...
 </div>
+
 <div class="tarjeta">
 
-<div class="header">
-  <img id="foto" class="foto" src="" style="display:none;">
-  <h1 id="nombre">
-    🐾 <span id="textoNombre">Cargando...</span> 🐾
-  </h1>
-</div>
+  <div class="header">
+    <span class="badge-eyebrow">🛡️ Mascota protegida</span>
+    <h1><span class="paw-icon">🐾</span> <span id="textoNombre">Cargando...</span> <span class="paw-icon">🐾</span></h1>
 
-<div class="mensaje">
-❤️ Si me encuentras, ayúdame a volver a casa ❤️
-</div>
+    <div class="foto-wrap">
+      <div id="fotoSkeleton" class="foto-skeleton"></div>
+      <img id="foto" class="foto" src="" style="display:none;">
+    </div>
+  </div>
 
-<div class="contenido">
+  <div class="perforada"></div>
 
-<div class="item"><span class="etiqueta">👤 Propietario:</span> <span class="valor" id="propietario">---</span></div>
-<div class="item"><span class="etiqueta">📞 Teléfono:</span> <span class="valor" id="telefono">---</span></div>
+  <div class="mensaje">
+    ❤️ Si me encuentras, ayúdame a volver a casa
+  </div>
 
-<div class="item"><span class="etiqueta">🎨 Color:</span> <span class="valor" id="color">---</span></div>
+  <div class="contenido">
 
-<div class="item"><span class="etiqueta">🍖 Alimento:</span> <span class="valor" id="alimento">---</span></div>
+    <div class="item">
+      <div class="icono">👤</div>
+      <div class="texto-fila">
+        <span class="etiqueta">Propietario</span>
+        <span class="valor" id="propietario">---</span>
+      </div>
+    </div>
 
-<div class="item"><span class="etiqueta">🩺 Observación:</span> <span class="valor" id="observacion">---</span></div>
-<div class="item"><span class="etiqueta">🎂 Nacimiento:</span> <span class="valor" id="nacimiento">---</span></div>
-</div>
+    <div class="item">
+      <div class="icono">📞</div>
+      <div class="texto-fila">
+        <span class="etiqueta">Teléfono</span>
+        <span class="valor" id="telefono">---</span>
+      </div>
+    </div>
 
-<a id="llamar" class="llamar" href="#">
-📞 LLAMAR AL PROPIETARIO
-</a>
+    <div class="item">
+      <div class="icono">🎨</div>
+      <div class="texto-fila">
+        <span class="etiqueta">Color</span>
+        <span class="valor" id="color">---</span>
+      </div>
+    </div>
 
-<div class="footer">
-Mascota protegida con NFC
-</div>
+    <div class="item">
+      <div class="icono">🍖</div>
+      <div class="texto-fila">
+        <span class="etiqueta">Alimento</span>
+        <span class="valor" id="alimento">---</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="icono">🩺</div>
+      <div class="texto-fila">
+        <span class="etiqueta">Observación</span>
+        <span class="valor" id="observacion">---</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="icono">🎂</div>
+      <div class="texto-fila">
+        <span class="etiqueta">Nacimiento</span>
+        <span class="valor" id="nacimiento">---</span>
+      </div>
+    </div>
+
+  </div>
+
+  <a id="llamar" class="llamar" href="#">
+    📞 LLAMAR AL PROPIETARIO
+  </a>
+
+  <div class="footer">
+    <span class="dot"></span> Mascota protegida con NFC
+  </div>
 
 </div>
 
@@ -179,9 +431,11 @@ if(document.getElementById("observacion"))
 document.getElementById("observacion").innerText = d.observacion || "---";
 
 const foto = document.getElementById("foto");
+const fotoSkeleton = document.getElementById("fotoSkeleton");
 
 foto.onload = function () {
   foto.style.display = "block";
+  if(fotoSkeleton) fotoSkeleton.style.display = "none";
 };
 
 foto.src = d.foto + "?v=" + Date.now();
