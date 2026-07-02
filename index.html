@@ -175,7 +175,7 @@ if(document.getElementById("observacion"))
 document.getElementById("observacion").innerText = d.observacion || "---";
 
 if(document.getElementById("foto"))
-document.getElementById("foto").src = d.foto;
+document.getElementById("foto").src = d.foto + "?v=" + Date.now();
 
 document.getElementById("llamar").href =
 "tel:" + d.telefono;
