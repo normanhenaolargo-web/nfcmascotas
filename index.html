@@ -172,9 +172,13 @@ document.getElementById("alimento").innerText = d.alimento || "---";
 if(document.getElementById("observacion"))
 document.getElementById("observacion").innerText = d.observacion || "---";
 
-if(document.getElementById("foto"))
-document.getElementById("foto").src = d.foto + "?v=" + Date.now();
+const foto = document.getElementById("foto");
 
+foto.onload = function () {
+  foto.style.display = "block";
+};
+
+foto.src = d.foto + "?v=" + Date.now();
 document.getElementById("llamar").href =
 "tel:" + d.telefono;
 document.getElementById("cargando").style.display = "none";
