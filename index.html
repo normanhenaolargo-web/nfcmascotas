@@ -125,8 +125,9 @@ font-size:14px;
 
 <div class="header">
   <img id="foto" class="foto" src="" style="display:none;">
-  <h1 id="nombre">🐾 MASCOTA</h1>
-  <h1>🐾</h1>
+  <h1 id="nombre">
+    🐾 <span id="textoNombre">Cargando...</span> 🐾
+  </h1>
 </div>
 
 <div class="mensaje">
@@ -163,7 +164,7 @@ fetch("https://script.google.com/macros/s/AKfycbxiu4-AEzDHc-KDhGY-4aHmpscSWHZB-c
 .then(r => r.json())
 .then(d => {
 console.log(d);
-document.getElementById("nombre").innerText = d.nombre || "MASCOTA";
+document.getElementById("textoNombre").innerText = d.nombre || "MASCOTA";
 document.getElementById("propietario").innerText = d.propietario || "---";
 document.getElementById("telefono").innerText = d.telefono || "---";
 document.getElementById("nacimiento").innerText = d.nacimiento || "---";
