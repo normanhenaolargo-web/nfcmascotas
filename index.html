@@ -108,8 +108,7 @@ body{
 .pata{
   position:absolute;
   font-size: clamp(20px, 6vw, 30px);
-  fill: var(--gold-500);
-  opacity:.4;
+  color: rgba(255,255,255,.12);
   pointer-events:none;
   user-select:none;
 }
@@ -345,12 +344,12 @@ body{
 <div class="tarjeta">
 
   <div class="header">
-    <svg class="pata p1" viewBox="0 0 64 64" width="1em" height="1em"><ellipse cx="32" cy="42" rx="15" ry="11"/><circle cx="13" cy="21" r="7"/><circle cx="27" cy="9" r="7"/><circle cx="41" cy="9" r="7"/><circle cx="53" cy="21" r="7"/></svg>
-    <svg class="pata p2" viewBox="0 0 64 64" width="1em" height="1em"><ellipse cx="32" cy="42" rx="15" ry="11"/><circle cx="13" cy="21" r="7"/><circle cx="27" cy="9" r="7"/><circle cx="41" cy="9" r="7"/><circle cx="53" cy="21" r="7"/></svg>
-    <svg class="pata p3" viewBox="0 0 64 64" width="1em" height="1em"><ellipse cx="32" cy="42" rx="15" ry="11"/><circle cx="13" cy="21" r="7"/><circle cx="27" cy="9" r="7"/><circle cx="41" cy="9" r="7"/><circle cx="53" cy="21" r="7"/></svg>
-    <svg class="pata p4" viewBox="0 0 64 64" width="1em" height="1em"><ellipse cx="32" cy="42" rx="15" ry="11"/><circle cx="13" cy="21" r="7"/><circle cx="27" cy="9" r="7"/><circle cx="41" cy="9" r="7"/><circle cx="53" cy="21" r="7"/></svg>
-    <svg class="pata p5" viewBox="0 0 64 64" width="1em" height="1em"><ellipse cx="32" cy="42" rx="15" ry="11"/><circle cx="13" cy="21" r="7"/><circle cx="27" cy="9" r="7"/><circle cx="41" cy="9" r="7"/><circle cx="53" cy="21" r="7"/></svg>
-    <svg class="pata p6" viewBox="0 0 64 64" width="1em" height="1em"><ellipse cx="32" cy="42" rx="15" ry="11"/><circle cx="13" cy="21" r="7"/><circle cx="27" cy="9" r="7"/><circle cx="41" cy="9" r="7"/><circle cx="53" cy="21" r="7"/></svg>
+    <span class="pata p1">🐾</span>
+    <span class="pata p2">🐾</span>
+    <span class="pata p3">🐾</span>
+    <span class="pata p4">🐾</span>
+    <span class="pata p5">🐾</span>
+    <span class="pata p6">🐾</span>
 
     <span class="badge-eyebrow">🛡️ Mascota protegida</span>
 
@@ -371,7 +370,7 @@ body{
     <div class="contenido">
 
       <div class="item">
-        <div class="icono">👤</div>
+        <div class="icono dorado">👤</div>
         <div class="texto-fila">
           <span class="etiqueta">Propietario</span>
           <span class="valor" id="propietario">---</span>
@@ -379,7 +378,7 @@ body{
       </div>
 
       <div class="item">
-        <div class="icono">📞</div>
+        <div class="icono dorado">📞</div>
         <div class="texto-fila">
           <span class="etiqueta">Teléfono</span>
           <span class="valor" id="telefono">---</span>
@@ -403,7 +402,7 @@ body{
       </div>
 
       <div class="item">
-        <div class="icono">🩺</div>
+        <div class="icono dorado">🩺</div>
         <div class="texto-fila">
           <span class="etiqueta">Observación</span>
           <span class="valor" id="observacion">---</span>
